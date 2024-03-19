@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from transformers import pipeline
 import torch
+import os
 
 # Initialize Flask app
 app = Flask(__name__)
