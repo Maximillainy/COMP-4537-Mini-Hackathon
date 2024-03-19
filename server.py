@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from transformers import pipeline
-
+import torch
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -8,6 +8,7 @@ app = Flask(__name__)
 # Load sentiment analysis model
 model_name = "MarieAngeA13/Sentiment-Analysis-BERT"
 model = pipeline("sentiment-analysis", model=model_name)
+
 
 @app.route('/')
 def home():
@@ -19,13 +20,13 @@ def analyze_text():
     if request.method == 'POST':
         data = request.json
         text = data.get("text", "")
-        
+
         if not text:
             return jsonify({"error": "No text provided"}), 400
-        
+
         # Perform sentiment analysis
         result = model(text)
-        
+
         return jsonify(result)
 
 
